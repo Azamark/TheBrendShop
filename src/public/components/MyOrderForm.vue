@@ -86,10 +86,9 @@ export default {
         hide() {
             this.$emit('update:show', false);
         },
-        submitOrder($event) {
+        submitOrder() {
             this.userData.id = Date.now();
             this.$emit('submitOrder',  this.userData);
-            //$event.target.reset();
             for(let key in this.userData) {
                 this.userData[key] = '';
             }

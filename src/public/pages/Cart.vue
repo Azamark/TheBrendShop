@@ -17,9 +17,9 @@
                             v-for="cartItem in cart"
                             :cartItem="cartItem"
                             :key="cartItem.id_product"
-                            @delete="delItem(cartItem)"
-                            @decrement="remove(cartItem)"
-                            @increment="increment(cartItem)"
+                            @delete="handler"
+                            @decrement="handler"
+                            @increment="handler"
                         />
                         <div class="cart__main-common">
                             <div class="total-price">
@@ -29,7 +29,7 @@
                         <div class="cart__items-btns">
                             <button @click="showOrderForm">Оформить заказ</button>
                             <button @click="$router.push('/')">Продолжить покупки</button>
-                            <button @click.stop="clear">Отчистить корзину</button>
+                            <button @click.stop="handler({action: 'clear', url: `${this.urlCart}`})">Отчистить корзину</button>
                         </div>
                 </div>
             </div>
@@ -55,39 +55,14 @@ export default {
         ...mapActions({
             BUILD_ACT_DESC: 'userActions/BUILD_ACT_DESC',
         }),
-        delItem(cartItem){
-            this.BUILD_ACT_DESC({
-                action: 'delete',
-                data: cartItem,
-                url: `${this.urlCart}`,
-            });
+        handler($data) {
+            this.BUILD_ACT_DESC($data);
         },
-        increment(cartItem) {
-            this.BUILD_ACT_DESC({
-                action: 'add',
-                data: cartItem,
-                url: `${this.urlCart}`,
-            });
-        },
-        remove(cartItem) {
-            this.BUILD_ACT_DESC({
-                action: 'remove',
-                data: cartItem,
-                url: `${this.urlCart}`
-            });
-        },
-        clear() {
-            this.BUILD_ACT_DESC({
-                action: 'clear',
-                data: null,
-                url: `${this.urlCart}`,
-            });
-        },
-        sendOrder(data) {
-            data.items = this.cart;
+        sendOrder($data) {
+            $data.items = this.cart;
             this.BUILD_ACT_DESC({
                 action: 'submit',
-                data: data,
+                data: $data,
                 url: `${this.urlOrder}`
             });
         },

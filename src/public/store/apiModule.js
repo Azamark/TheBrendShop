@@ -6,7 +6,6 @@ export const apiModule = {
                 .catch(e => console.log(e))
         },
         POST_JSON({ satet, commit }, data) {
-            console.log(data)
             return fetch(data.url, {
                 method: 'POST',
                 headers: {

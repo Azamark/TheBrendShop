@@ -4,24 +4,27 @@
         class="cart__table" 
         v-if="show"
         @click="hide" >
+            <div v-if="cartData.length">
                 <div class="cart__top cart__top--flex">
                     <cart-item
                         v-for="cartItem in cartData"
                         :cartItem="cartItem"
                         :key="cartItem.id_product"
-                        @delete="delItem(cartItem)"
-                        @decrement="remove(cartItem)"
-                        @increment="increment(cartItem)"
+                        @delete="handler"
+                        @remove="handler"
+                        @increment="handler"
                     />
                 </div>
-                <div class="cart__bottom cart__bottom--flex">
-                    <button class="cart__link" @click="$router.push('/cart')">
-                        <p>КОРЗИНА</p>
-                    </button>
-                    <div class="full-price">
-                        <p>Полная стоимость: {{cartTotalCost}} Р.</p>
-                    </div>
+            </div>
+            <p v-else>Нет товаров в корзине</p>    
+            <div class="cart__bottom cart__bottom--flex">
+                <button class="cart__link" @click="$router.push('/cart')">
+                    <p>КОРЗИНА</p>
+                </button>
+                <div class="full-price">
+                    <p>Полная стоимость: {{cartTotalCost}} Р.</p>
                 </div>
+            </div>
         </div>
         <div class="counter">
             <div class="counter_flex">
@@ -56,26 +59,8 @@ export default {
         ...mapActions({
             BUILD_ACT_DESC: 'userActions/BUILD_ACT_DESC',
         }),
-        delItem(cartItem){
-            this.BUILD_ACT_DESC({
-                action: 'delete',
-                data: cartItem,
-                url: `${this.urlCart}`,
-            });
-        },
-        increment(cartItem) {
-            this.BUILD_ACT_DESC({
-                action: 'add',
-                data: cartItem,
-                url: `${this.urlCart}`,
-            });
-        },
-        remove(cartItem) {
-            this.BUILD_ACT_DESC({
-                action: 'remove',
-                data: cartItem,
-                url: `${this.urlCart}`
-            });
+        handler($data) {
+            this.BUILD_ACT_DESC($data);
         },
         hide() {
             this.$emit("update:show", false);

@@ -42,18 +42,23 @@ export default {
             required: true,
         }
     },
+    data() {
+        return {
+            urlCart: '/api/cart/',
+        }
+    },
     methods: {
         ...mapActions({
             GET_PRODUCT: 'catalog/GET_PRODUCT',
         }),
         decrementItem() {
-            this.$emit('decrement')
+            this.$emit('remove', {action:'remove', url: `${this.urlCart}`, data: this.cartItem})
         },
         incrementItem() {
-            this.$emit('increment')
+            this.$emit('increment', {action:'add', url: `${this.urlCart}`, data: this.cartItem})
         },
         deleteItem(){
-            this.$emit('delete');
+            this.$emit('delete', {action:'delete', url: `${this.urlCart}`, data: this.cartItem});
         },
         goToProduct(){
             this.GET_PRODUCT(this.cartItem);

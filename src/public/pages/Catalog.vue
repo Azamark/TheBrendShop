@@ -36,7 +36,6 @@ export default {
     },
     computed: {
         ...mapState({
-            isProducstLoading: state => state.catalog.isProducstLoading,
             filter: state => state.catalog.filter,
         }),
         ...mapGetters({
