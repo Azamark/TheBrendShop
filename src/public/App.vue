@@ -23,7 +23,7 @@ export default {
             GET_CART: 'cart/GET_CART'
         }),
     },
-    mounted() {
+    created() {
         this.GET_JSON('/api/products')
             .then(data => this.GET_PRODUCTS(data))
         this.GET_JSON('/api/cart')

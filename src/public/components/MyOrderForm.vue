@@ -7,13 +7,13 @@
             <div class="shopform__item"> 
                 <h3>Имя и Фамилия</h3>
                 <input
-                    v-model="userData.name" 
+                    v-model.trim.lazy="userData.name" 
                     type="text" 
                     placeholder="Имя" 
                     required
                 >
                 <input
-                    v-model="userData.surname" 
+                    v-model.trim.lazy="userData.surname" 
                     type="text" 
                     placeholder="Фамилия" 
                     required
@@ -22,13 +22,13 @@
             <div class="shopform__item"> 
                 <h3>Адрес</h3>
                 <input 
-                    v-model="userData.city"
+                    v-model.trim.lazy="userData.city"
                     type="text" 
                     placeholder="Город" 
                     required
                 >
                 <input 
-                    v-model="userData.addr"
+                    v-model.trim.lazy="userData.addr"
                     type="text" 
                     placeholder="Улица Дом" 
                     required
@@ -37,13 +37,13 @@
             <div class="shopform__item"> 
                 <h3>Контакты</h3>
                 <input 
-                    v-model="userData.phone"
+                    v-model.trim.lazy="userData.phone"
                     type="tel" 
                     placeholder="Тел." 
                     required
                 >
                 <input
-                    v-model="userData.email" 
+                    v-model.trim.lazy="userData.email" 
                     type="email" 
                     placeholder="Электронная почта" 
                     required
@@ -70,9 +70,8 @@ export default {
     },
     data() {
         return { 
+            urlOrder: '/api/orders/',
             userData: {
-                id: '',
-                items: '',
                 name: '',
                 surname: '',
                 city: '',
@@ -87,8 +86,7 @@ export default {
             this.$emit('update:show', false);
         },
         submitOrder() {
-            this.userData.id = Date.now();
-            this.$emit('submitOrder',  this.userData);
+            this.$emit('submitOrder',  {action:'submit', url: `${this.urlOrder}`, data: {id: Date.now(),...this.userData, data: [...this.cartData]}});
             for(let key in this.userData) {
                 this.userData[key] = '';
             }

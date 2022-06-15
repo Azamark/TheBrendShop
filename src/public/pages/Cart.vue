@@ -2,7 +2,7 @@
     <my-order-form
         v-model:show="isShowOrderForm"
         :cartData = "cart"
-        @submitOrder="sendOrder"
+        @submitOrder="handler"
     />
     <section class="cart">
         <header class="cart__header">
@@ -47,8 +47,6 @@ export default {
     data() {
         return {
             isShowOrderForm: false,
-            urlCart: '/api/cart/',
-            urlOrder: '/api/orders/',
         }
     },
     methods: {
@@ -57,14 +55,6 @@ export default {
         }),
         handler($data) {
             this.BUILD_ACT_DESC($data);
-        },
-        sendOrder($data) {
-            $data.items = this.cart;
-            this.BUILD_ACT_DESC({
-                action: 'submit',
-                data: $data,
-                url: `${this.urlOrder}`
-            });
         },
         showOrderForm() {
             this.isShowOrderForm = !this.isShowOrderForm;

@@ -42,7 +42,7 @@ export default {
     components: {CartItem},
     data() {
         return {
-            urlCart: '/api/cart/'
+
         }
     },
     props: { 
