@@ -86,7 +86,7 @@ export default {
             this.$emit('update:show', false);
         },
         submitOrder() {
-            this.$emit('submitOrder',  {action:'submit', url: `${this.urlOrder}`, data: {id: Date.now(),...this.userData, data: [...this.cartData]}});
+            this.$emit('submitOrder',  {action:'submit', url: `${this.urlOrder}`, data: {id: Date.now(), ...this.userData, data: [...this.cartData]}});
             for(let key in this.userData) {
                 this.userData[key] = '';
             }

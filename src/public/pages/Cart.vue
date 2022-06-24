@@ -18,7 +18,7 @@
                             :cartItem="cartItem"
                             :key="cartItem.id_product"
                             @delete="handler"
-                            @decrement="handler"
+                            @remove="handler"
                             @increment="handler"
                         />
                         <div class="cart__main-common">
