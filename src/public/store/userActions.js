@@ -13,21 +13,21 @@ export const userActions = {
         }
     },
     actions: {
-        HANDLER({ dispatch, state, rootGetters }) {
+        HANDLER({ dispatch, state, rootState, rootGetters }) {
             switch (state.actDescription.action) {
                 case 'add':
                     let find = rootGetters['cart/cart'].find(el => el.id_product === state.actDescription.data.id_product);
                     if (find) {
                         dispatch('cart/INCREMENT_ITEM', find, { root: true });
                         dispatch('api/PUT_JSON', {
-                            url: state.actDescription.url,
+                            url: rootState['api'].urlCart,
                             id: state.actDescription.data.id_product,
                             data: { quantity: 1 }
                         }, { root: true });
                     } else {
                         dispatch('cart/ADD_TO_CART', state.actDescription.data, { root: true });
                         dispatch('api/POST_JSON', {
-                            url: state.actDescription.url,
+                            url: rootState['api'].urlCart,
                             id: state.actDescription.data.id_product,
                             data: rootGetters['cart/cart'][rootGetters['cart/cart'].length - 1]
                         }, { root: true });
@@ -36,7 +36,7 @@ export const userActions = {
                 case 'delete':
                     dispatch('cart/DELETE_FROM_CART', state.actDescription.data, { root: true });
                     dispatch('api/DELETE_JSON', {
-                        url: state.actDescription.url,
+                        url: rootState['api'].urlCart,
                         id: state.actDescription.data.id_product,
                     }, { root: true });
                     break;
@@ -44,25 +44,25 @@ export const userActions = {
                     if (state.actDescription.data.quantity > 1) {
                         dispatch('cart/DECREMENT_ITEM', state.actDescription.data, { root: true });
                         dispatch('api/PUT_JSON', {
-                            url: state.actDescription.url,
+                            url: rootState['api'].urlCart,
                             id: state.actDescription.data.id_product,
                             data: { quantity: -1 }
                         }, { root: true });
                     } else {
                         dispatch('cart/DELETE_FROM_CART', state.actDescription.data, { root: true });
                         dispatch('api/DELETE_JSON', {
-                            url: state.actDescription.url,
+                            url: rootState['api'].urlCart,
                             id: state.actDescription.data.id_product,
                         }, { root: true });
                     }
                     break;
                 case 'clear':
                     dispatch('cart/CLEAR_CART', null, { root: true });
-                    dispatch('api/CLEAR_JSON', { url: state.actDescription.url }, { root: true });
+                    dispatch('api/CLEAR_JSON', { url: rootState['api'].urlCart, }, { root: true });
                     break;
                 case 'submit':
                     dispatch('api/POST_JSON', {
-                        url: state.actDescription.url,
+                        url: rootState['api'].urlOrder,
                         data: state.actDescription.data
                     }, { root: true });
                     break

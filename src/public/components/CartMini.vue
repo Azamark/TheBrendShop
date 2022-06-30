@@ -40,11 +40,6 @@ import { mapActions, mapGetters } from 'vuex'
 
 export default {
     components: {CartItem},
-    data() {
-        return {
-
-        }
-    },
     props: { 
         show: { 
             type: Boolean, 
@@ -59,8 +54,8 @@ export default {
         ...mapActions({
             BUILD_ACT_DESC: 'userActions/BUILD_ACT_DESC',
         }),
-        handler($data) {
-            this.BUILD_ACT_DESC($data);
+        handler(data) {
+            this.BUILD_ACT_DESC(data);
         },
         hide() {
             this.$emit("update:show", false);

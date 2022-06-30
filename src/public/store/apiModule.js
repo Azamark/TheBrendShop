@@ -1,4 +1,9 @@
 export const apiModule = {
+    state: () => ({
+        urlCart: '/api/cart/',
+        urlProduct: '/api/products',
+        urlOrder: '/api/orders/',
+    }),
     actions: {
         GET_JSON({ satet, commit }, url = '') {
             return fetch(url)

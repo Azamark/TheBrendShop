@@ -19,7 +19,7 @@
                     <div class="line__grey"></div>
                     <div class="add__btn--red">
                         <my-button-add
-                        @addItem="addItem"
+                        @addItem="handler"
                         />
                     </div>
                 </div>
@@ -36,20 +36,14 @@ export default {
     components: {
         MyButtonAdd
     },
-    data(){
-        return {
-            urlCart: '/api/cart/'
-        }
-    },
     methods: {
         ...mapActions({
             BUILD_ACT_DESC: 'userActions/BUILD_ACT_DESC',
         }),
-        addItem(){
+        handler(){
             this.BUILD_ACT_DESC({
                 action: 'add',
                 data: this.product,
-                url: `${this.urlCart}`,
             });
         }
     },

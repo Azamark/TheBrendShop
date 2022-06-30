@@ -41,7 +41,7 @@ export default {
             GET_PRODUCT: 'catalog/GET_PRODUCT',
         }), 
         addToCart() {
-            this.$emit('addToCart', this.product)
+            this.$emit('addToCart', {action:'add', data: this.product});
         },
         goToProduct() {
             this.GET_PRODUCT(this.product);

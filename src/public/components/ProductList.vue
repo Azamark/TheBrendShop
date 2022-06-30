@@ -4,7 +4,7 @@
             v-for="product in products"
             :product="product"
             :key="product.id_product"
-            @addToCart="addItem"
+            @addToCart="handler"
         />
     </section>
     <h2 v-else style="color: red">Список товаров пуст</h2>
@@ -31,12 +31,8 @@ export default {
         ...mapActions({
             BUILD_ACT_DESC: 'userActions/BUILD_ACT_DESC',
         }),
-        addItem(prod){
-            this.BUILD_ACT_DESC({
-                action: 'add',
-                data: prod,
-                url: `${this.urlCart}`,
-            });
+        handler(data) {
+            this.BUILD_ACT_DESC(data);
         }
     },
 }

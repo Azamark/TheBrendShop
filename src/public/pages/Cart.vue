@@ -53,8 +53,8 @@ export default {
         ...mapActions({
             BUILD_ACT_DESC: 'userActions/BUILD_ACT_DESC',
         }),
-        handler($data) {
-            this.BUILD_ACT_DESC($data);
+        handler(data) {
+            this.BUILD_ACT_DESC(data);
         },
         showOrderForm() {
             this.isShowOrderForm = !this.isShowOrderForm;
